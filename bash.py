@@ -4,7 +4,7 @@ import numpy as np
 # Подключение к SQL Server
 def get_connection():
     conn = pyodbc.connect(
-        "Driver={Your driver;"
+        "Driver={Your driver};"
         "Server= your server"
         "Database= your database;"
         "Trusted_Connection=yes;"
