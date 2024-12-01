@@ -1,0 +1,96 @@
+#:import NoTransition kivy.uix.screenmanager.NoTransition
+
+
+ScreenManager:
+    transition: NoTransition()
+    SettingsScreen:
+    GameScreen:
+    ResultScreen:
+
+
+<SettingsScreen>:
+    name: "settings"
+    BoxLayout:
+        orientation: "vertical"
+        spacing: 10
+        padding: 20
+
+        Label:
+            text: "Game settings"
+            font_size: 32
+
+        BoxLayout:
+            orientation: "horizontal"
+            spacing: 10
+            Label:
+                text: "Select difficult:"
+            Spinner:
+                id: difficulty_spinner
+                text: "Easy"
+                values: ["Easy", "difficult"]
+
+        BoxLayout:
+            orientation: "horizontal"
+            spacing: 10
+            Label:
+                text: "Who takes first:"
+            Spinner:
+                id: player_spinner
+                text: "Player 1"
+                values: ["Player 1", "Player 2"]
+
+        Button:
+            text: "Start game"
+            size_hint_y: None
+            height: 50
+            on_press:
+                app.start_game(difficulty_spinner.text, player_spinner.text)
+                root.manager.current = "game"
+
+<GameScreen>:
+    name: "game"
+    BoxLayout:
+        orientation: "vertical"
+        spacing: 10
+        padding: 20
+
+        Label:
+            id: stones_label
+            text: "Remain stones: 11"
+            font_size: 24
+
+        BoxLayout:
+            orientation: "horizontal"
+            spacing: 10
+            Button:
+                text: "Take 1 stone"
+                on_press: app.make_move(1)
+            Button:
+                text: "Take 2 stones"
+                on_press: app.make_move(2)
+
+        Button:
+            text: "Exit to settings"
+            size_hint_y: None
+            height: 50
+            on_press:
+                root.manager.current = "settings"
+
+<ResultScreen>:
+    name: "result"
+    BoxLayout:
+        orientation: "vertical"
+        spacing: 10
+        padding: 20
+
+        Label:
+            id: result_label
+            text: "Game results"
+            font_size: 32
+
+        Button:
+            text: "Start new game"
+            size_hint_y: None
+            height: 50
+            on_press:
+                root.manager.current = "settings"
